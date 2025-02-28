@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mast Structural Analysis</title>
+
+    <link rel="icon" type="image/x-icon" href="https://masttech.net/images/favicon.ico">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+
+    <script src="../gauss.js"></script>
+
+
+
+
+
+
+
+
+    <script>
+        window.onload = function() {
+
+
+
+          let g = new Gauss()
+
+          g.RunProgram()
+
+
+        };
+
+
+    </script>
+
+</head>
+
+
+<body class="container has-background-white-ter">
+
+      <section class="section ">
+
+        <h1 class="title is-size-1 ">Gauss Distribution</h1>
+
+
+        <div id="graph" class="card my-4 p-8"></div>
+
+   
+
+    </section>
+
+
+    
+</body>
+</html>
