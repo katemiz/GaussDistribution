@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mast Structural Analysis</title>
+    <title>Gauss Distribution for Javascript Math.random()</title>
 
     <link rel="icon" type="image/x-icon" href="https://masttech.net/images/favicon.ico">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-
     <script src="../gauss.js"></script>
+  </head>
 
-
-
-
-
-
-
-
-    <script>
-        window.onload = function() {
-
-
-
-          let g = new Gauss()
-
-          g.RunProgram()
-
-
-        };
-
-
-    </script>
-
-</head>
-
-
-<body class="container has-background-white-ter">
+  <body class="has-background-white-ter">
 
       <section class="section ">
+        <h1 class="title is-size-1 has-text-centered">Gauss Distribution for <br>Javascript Math.random()</h1>
+        <h1 class="subtitle is-size-1 has-text-centered">A Galton Board Implementation</h1>
 
-        <h1 class="title is-size-1 ">Gauss Distribution</h1>
+        <button class="button is-small" onclick="toggleModal()">?</button>
+
+        <div id="graph" class="card my-4 p-8"></div> 
+
+        <nav class="level">
+
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Number of Random Run Iterations</p>
+              <p class="title" id="cycleNo"></p>
+              <button class="button is-small is-hidden" onclick="Refresh(false,-1)" id="minusCycleNo">x/10</button>
+              <button class="button is-small" onclick="Refresh(false,1)">10x</button>
+            </div>
+          </div>
+
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Number of Data Intervals</p>
+              <p class="title" id="boxNo"></p>
+              <button class="button is-small is-hidden" onclick="Refresh(-1,false)" id="minusBoxNo">-</button>
+              <button class="button is-small" onclick="Refresh(1,false)">+</button>
+            </div>
+          </div>
+
+        </nav>
+
+      </section>    
 
 
-        <div id="graph" class="card my-4 p-8"></div>
+      <div class="modal" id="modal">
+        <div class="modal-background" onclick="toggleModal()"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Galton Board</p>
+            <button class="delete" aria-label="close" onclick="toggleModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <!-- Content ... -->
+            <figure class="image">
+              <img src="../Galton_box.jpg" />
+            </figure>
 
-   
+            <a href="https://en.wikipedia.org/wiki/Galton_board">More ...</a>
+          </section>
 
-    </section>
+        </div>
+      </div>
 
 
-    
-</body>
+      <script src="../js.js"></script>
+
+  </body>
 </html>

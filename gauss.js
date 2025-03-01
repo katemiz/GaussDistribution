@@ -1,50 +1,76 @@
-
-
-
-
-
-
 class Gauss {
-    constructor() {
 
-        this.gauss = {
-            "-8":0,
-            "-6":0,
-            "-4":0,
-            "-2":0,
-            "0":0,
-            "2":0,
-            "4":0,
-            "6":0,
-            "8":0,
-        }
+    constructor(boxNo,cycleNo) {
 
-        this.times = 10000000;
-        
-        
+        this.boxNo = boxNo
+        this.cycleNo = cycleNo    // Odd Number
+
+        this.interval = 100/this.boxNo
     }
+
+
+    Initialize() {
+
+        this.gauss = {};
+        this.xData = [];
+
+        // let r2;
+
+        let counter = Math.floor(this.boxNo/2);
+
+
+        for (let i = -counter; i <= counter; i++) {
+            this.gauss[i] = 0;
+            this.xData.push(i.toString())
+
+            // r2 = i*this.interval
+
+            // console.log("i",i,this.xData)
+
+
+            // this.xData.push(r2.toFixed(2))
+            // this.gauss[r2.toFixed(2)] = 0;
+
+
+
+
+        }
+        // console.log("counter",counter)
+
+        // console.log("gauss",this.gauss)
+    }
+
 
     DoRandom() {
 
+        //let durum = Math.ceil(this.boxNo/2);
+
+        // let counter = Math.floor(this.boxNo/2);
+
+
         let durum = 0;
 
-        for (let index = 1; index <= 8; index++) {
 
-            let r = Math.random()
+        ///console.log("durum",durum)
 
-            if (r < 0.5) {
+        for (let i = 0; i < this.boxNo-1; i++) {
+
+            if (Math.random() < 0.5) {
                 durum = durum -1;
             } else {
                 durum = durum +1;
             }
-
-            //console.log(r)
         }
 
+        // console.log("durum2",durum)
+
+        durum = durum/2;
+
+
+
+        // this.gauss[index.toFixed(2)] = this.gauss[index.toFixed(2)]+1
         this.gauss[durum] = this.gauss[durum]+1
 
-        // console.log(durum)
-        // console.log ('---- Tek Atış')
     }
 
 
@@ -52,16 +78,16 @@ class Gauss {
 
     RunProgram() {
 
-        for (let index = 1; index <= this.times; index++) {
+        this.Initialize();    
 
+        for (let i = 1; i <= this.cycleNo; i++) {
             this.DoRandom()
         }
 
-        console.log(this.gauss)
-
-        this.CalculateMean()
-
+        //this.CalculateMean()
         this.DoChart();
+
+        // console.log(this.gauss)
     }
 
 
@@ -70,13 +96,17 @@ class Gauss {
         let toplam = 0
 
         for (let index = 0; index < this.gauss.length; index++) {
-            toplam = toplam+ this.gauss[index]
-
-            console.log("this.gauss[index]",this.gauss[index])
-            
+            toplam = toplam+ this.gauss[index]            
         }
 
-        console.log("toplam",toplam)
+
+        // this.gauss.array.forEach(element => {
+
+        //     console.log("Toplam: "+element)
+
+            
+        // });
+
     }
 
 
@@ -84,64 +114,54 @@ class Gauss {
 
         let TESTER = document.getElementById('graph');
 
-        let xData = ["-8","-6","-4","-2","0","2","4","6","8"];
-        let yData = [
-            this.gauss["-8"],
-            this.gauss["-6"],
-            this.gauss["-4"],
-            this.gauss["-2"],
-            this.gauss["0"],
-            this.gauss["2"],
-            this.gauss["4"],
-            this.gauss["6"],
-            this.gauss["8"]
-        ];
+        this.yData = []
+        this.textData = []
 
+        this.xData.forEach( element => {
+            this.yData.push(this.gauss[element])
+            this.textData.push(this.gauss[element])
 
+        })
 
 
         var trace1 = {
 
-        type: 'bar',
+            type: 'bar',
+            x: this.xData,
+            y: this.yData,
+            text:this.textData,
 
-        x: xData,
-
-        y: yData,
-
-        marker: {
-
-            color: '#C8A2C8',
-
-            line: {
-
-                width: 2.5
-
+            marker: {
+                color: '#C8A2C8',
+                line: {
+                    width: 2.5
+                }
             }
-
-        }
-
         };
-
 
         var data = [ trace1 ];
 
-
         var layout = {
 
-        title: {
+            title: {
+                text: 'Gauss Distribution for '+this.cycleNo+' Random Action'
+            },
 
-            text: 'Gauss Distribution for '+this.times+' Random Action'
-
-        },
-
-        font: {size: 18}
-
+            font: {size: 18}
         };
 
-
         var config = {responsive: true}
-
-
         Plotly.newPlot(TESTER, data, layout, config );
+    }
+
+
+    Refresh(boxNo,cycleNo) 
+    {
+        this.boxNo = boxNo;
+        this.cycleNo =cycleNo;
+
+        // console.log("Refresh Class",this.boxNo,this.cycleNo)
+
+        this.RunProgram();
     }
 }
