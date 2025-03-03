@@ -117,11 +117,18 @@ class Gauss {
         this.yData = []
         this.textData = []
 
+        let percent;
+
         this.xData.forEach( element => {
             this.yData.push(this.gauss[element])
-            this.textData.push(this.gauss[element])
+
+            percent = 100*this.gauss[element]/this.cycleNo
+
+            this.textData.push(percent.toFixed(3)+'%')
 
         })
+
+
 
 
         var trace1 = {
