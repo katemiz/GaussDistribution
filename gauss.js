@@ -14,44 +14,19 @@ class Gauss {
         this.gauss = {};
         this.xData = [];
 
-        // let r2;
-
         let counter = Math.floor(this.boxNo/2);
 
 
         for (let i = -counter; i <= counter; i++) {
             this.gauss[i] = 0;
             this.xData.push(i.toString())
-
-            // r2 = i*this.interval
-
-            // console.log("i",i,this.xData)
-
-
-            // this.xData.push(r2.toFixed(2))
-            // this.gauss[r2.toFixed(2)] = 0;
-
-
-
-
         }
-        // console.log("counter",counter)
-
-        // console.log("gauss",this.gauss)
     }
 
 
     DoRandom() {
 
-        //let durum = Math.ceil(this.boxNo/2);
-
-        // let counter = Math.floor(this.boxNo/2);
-
-
         let durum = 0;
-
-
-        ///console.log("durum",durum)
 
         for (let i = 0; i < this.boxNo-1; i++) {
 
@@ -62,15 +37,9 @@ class Gauss {
             }
         }
 
-        // console.log("durum2",durum)
-
         durum = durum/2;
 
-
-
-        // this.gauss[index.toFixed(2)] = this.gauss[index.toFixed(2)]+1
         this.gauss[durum] = this.gauss[durum]+1
-
     }
 
 
@@ -80,14 +49,16 @@ class Gauss {
 
         this.Initialize();    
 
+        let start = performance.now();
+
         for (let i = 1; i <= this.cycleNo; i++) {
             this.DoRandom()
         }
 
-        //this.CalculateMean()
-        this.DoChart();
+        let end = performance.now();
+        let time = end-start;
 
-        // console.log(this.gauss)
+        this.DoChart(time);
     }
 
 
@@ -98,19 +69,10 @@ class Gauss {
         for (let index = 0; index < this.gauss.length; index++) {
             toplam = toplam+ this.gauss[index]            
         }
-
-
-        // this.gauss.array.forEach(element => {
-
-        //     console.log("Toplam: "+element)
-
-            
-        // });
-
     }
 
 
-    DoChart() {
+    DoChart(duration) {
 
         let TESTER = document.getElementById('graph');
 
@@ -127,9 +89,6 @@ class Gauss {
             this.textData.push(percent.toFixed(3)+'%')
 
         })
-
-
-
 
         var trace1 = {
 
@@ -151,7 +110,7 @@ class Gauss {
         var layout = {
 
             title: {
-                text: 'Gauss Distribution for '+this.cycleNo+' Random Action'
+                text: 'Gauss Distribution for '+this.cycleNo+' Random Action<br>[Time Elapsed '+duration+' ms]'
             },
 
             font: {size: 18}
@@ -166,8 +125,6 @@ class Gauss {
     {
         this.boxNo = boxNo;
         this.cycleNo =cycleNo;
-
-        // console.log("Refresh Class",this.boxNo,this.cycleNo)
 
         this.RunProgram();
     }
